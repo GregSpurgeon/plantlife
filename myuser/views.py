@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.forms import SignUpForm
 from myuser.models import MyUser
 from indoorplants.models import Plant, PlantType
-from indoorplants.bootstrap_data import generate_data_planttype, generate_data_plant
+from indoorplants.bootstrap_data import generate_data_planttype
 from plantcalendar.models import PlantCalendarEntry, PlantWateringEntry
 from journal.models import Entry
 # Create your views here.
@@ -14,8 +14,6 @@ from journal.models import Entry
 def index_view(request):
     if not PlantType.objects.all():
         generate_data_planttype()
-    if not Plant.objects.filter(owner=1):
-        generate_data_plant()
     if request.user.is_authenticated:
         my_user = MyUser.objects.filter(username=request.user.username).first()
         plants = Plant.objects.filter(owner=request.user)
