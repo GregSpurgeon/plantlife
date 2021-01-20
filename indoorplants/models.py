@@ -4,6 +4,7 @@ from myuser.models import MyUser
 # planttype model is for database plants to pick from
 class PlantType(models.Model):
     name = models.CharField(max_length=30)
+    author = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     common_name = models.CharField(max_length=50, blank=True, null=True,)
     photo = models.ImageField(upload_to='images/', height_field=None, width_field=None, max_length=None, blank=True, null=True,)
     SUNLIGHT = [

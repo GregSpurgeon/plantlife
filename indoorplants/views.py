@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.views.generic import View
 
-from indoorplants.models import Plant
+from indoorplants.models import Plant, PlantType
 from journal.models import Entry
 from plantcalendar.models import PlantWateringEntry
 # Create your views here.
@@ -41,11 +41,18 @@ class PlantView(View):
                 rec_date += timedelta(days=days)
         return render(request, 'plantdetail.html', {'plant': plant, 'journal': journal})
 
+
 class LibraryView(View):
     def get(self, request):
-        library = Plant.objects.filter(owner=1)
+        library = PlantType.objects.filter(author=1)
         return render(request, 'plantlibrary.html', {'library': library})
-        
+
+
+class PlantTypeView(View):
+    def get(self, request, plant_id):
+        plant_type = PlantType.objects.get(id=plant_id)
+        return render(request, 'p_library_details.html', {'plant': plant_type})
+
 
 @login_required
 def alt_watering(request, plant_id):
@@ -74,10 +81,10 @@ def alt_watering(request, plant_id):
 @login_required
 def add_plant(request, plant_id):
     me = request.user
-    parent_plant = Plant.objects.get(id=plant_id)
+    parent_plant = PlantType.objects.get(id=plant_id)
     # create an instance of a parent plant with added fields
     new_plant = Plant.objects.create(
-        planttype=parent_plant.planttype,
+        planttype=parent_plant,
         owner=request.user
     )
     text = f"""A new plant was added to your profile. You can set a custom

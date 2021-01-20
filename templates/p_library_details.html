@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block content %} 
+{% comment %} to display plant type details {% endcomment %}
+<div class="mx-auto">
+    <div class="card mx-auto" style="width: 60rem;">
+        <div class="row" style="--bs-gutter-x: 0">
+            <div class="card-header text-center">
+                <h1 style="font-family: copperplate, sans-serif;">Plant Details</h1>
+                <strong><h2 style="color: #778F48">{{ plant.name }}</h2></strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card-body" >
+                    <img
+                        src="{{ plant.photo.url }}"
+                        class="img-responsive"
+                        style="width: 30rem; padding: 1rem"
+                    />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <h4>Common Name:  {{plant.common_name}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h4>Sunlight Type:  {{plant.sunlight_type}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h4>Watering Frequency:  {{plant.water_freq}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h4>Soil Type:  {{plant.soil_type}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h4>Moisture Level:  {{plant.moisture_level}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h4>Common Problems:  {{plant.common_problems}}</h4>
+                        </li>
+                        {% if plant.notes %}
+                        <li class="list-group-item">
+                            <h4>Other Notes:  {{plant.notes}}</h4>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="mx-auto">
+                        <a
+                        href="/add_plant/{{plant.id}}/"
+                        class="btn  btn-lg btn-outline-light"
+                        style="background-color: #8f6479"
+                        ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                          </svg> Add plant to my profile</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
