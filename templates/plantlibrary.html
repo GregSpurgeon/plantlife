@@ -1,16 +1,27 @@
 {% extends 'base.html' %} {% block content %}
-<h1 style="font-family: copperplate, sans-serif;">Plant Library</h1>
-<h5>Click on a plant name to get more info!</h5>
-<br />
+<h1 style="font-family: copperplate, sans-serif; color: #778F48;"">Plant Library</h1>
+<p class = 'fs-5' style="color: #8f6479; font-family: copperplate, sans-serif;">Click on a plant name to get more info!</p>
+<div class = 'fs-10' style="color: #8f6479; font-family: copperplate, sans-serif;">Don't see your plant in our library? 
+<br/>  
+  Click 
+<button type="button" class="btn btn-outline-success btn-sm">
+  <a class="link-success" href="/add_plant_type/">Here</a>
+</button>
+to add a new plant to the library
+</div>
 <div class="row">
   {% for plant_type in library %}
   <div class="col-sm-4" style="padding: 1rem">
     <div class="card border-dark mb-3" style="margin-right: 10px; width: 18rem">
+      {% if plant_type.photo %} 
       <img
         src="{{ plant_type.photo.url }}"
         class="card-img-top"
         alt="..."
       />
+      {%else%}
+      no photo
+      {% endif %}
       <div class="card-body text-center" style="font-size: 2rem">
         <h3 class="card-title">
           <strong><a style="color: #4E8234" href="/plant_type/{{plant_type.id}}/">

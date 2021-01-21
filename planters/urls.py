@@ -7,7 +7,7 @@ from authentication.views import LoginView, LogoutView, SignUpView, about
 from plantcalendar.views import CalendarView, CreateCalEntry, remove_calendar_entry
 from journal.views import CreateEntryView, remove_entry
 from myuser.views import index_view, profile, edit_profile, delete_profile
-from indoorplants.views import PlantView, PlantTypeView, LibraryView, add_plant, remove_plant, alt_watering
+from indoorplants.views import PlantView, AddPlantType, PlantTypeView, LibraryView, add_plant, remove_plant, alt_watering
 
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     path('remove_entry/<int:entry_id>/', remove_entry, name='remove_entry'),
     path('remove_plant/<int:plant_id>/', remove_plant, name='remove_plant'),
     path('sign_up/', SignUpView.as_view(), name='sign_up'),
+    path('add_plant_type/', AddPlantType.as_view(), name="add_plant_type")
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
