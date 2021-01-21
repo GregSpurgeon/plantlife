@@ -11,3 +11,5 @@ class AddPlantTypeForm(forms.ModelForm):
         widgets = {
         'name' : forms.TextInput(attrs = {'placeholder': 'Scientific Name'}), 
         }
+
+        

@@ -4,12 +4,15 @@
     <div class="card mx-auto" style="width: 60rem;">
         <div class="row" style="--bs-gutter-x: 0">
             <div class="card-header text-center">
-                <h1 style="font-family: copperplate, sans-serif; color: #778F48">Plant Details</h1>
-                <strong><h2 style="color: #8f6479">{{ plant.planttype.name }}</h2></strong>
+                <h1 style="font-family: copperplate, sans-serif; color: #778F48">
+                    Plant Details
+                </h1>
+                <strong><h2 style="color: #8f6479" class="text-capitalize">{{ plant.planttype.name }}</h2></strong>
             </div>
         </div>
         <div class="row">
             <div class="col-6">
+                {% if plant.planttype.photo %}
                 <div class="card-body" >
                     <img
                         src="{{ plant.planttype.photo.url }}"
@@ -17,6 +20,7 @@
                         style="width: 30rem; padding: 1rem"
                     />
                 </div>
+                {% endif %}
             </div>
             <div class="col-6">
                 <div class="card-body">

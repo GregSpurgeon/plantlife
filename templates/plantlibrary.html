@@ -1,42 +1,76 @@
 {% extends 'base.html' %} {% block content %}
-<h1 style="font-family: copperplate, sans-serif; color: #778F48;"">Plant Library</h1>
-<p class = 'fs-5' style="color: #8f6479; font-family: copperplate, sans-serif;">Click on a plant name to get more info!</p>
-<div class = 'fs-10' style="color: #8f6479; font-family: copperplate, sans-serif;">Don't see your plant in our library? 
-<br/>  
-  Click 
-<button type="button" class="btn btn-outline-success btn-sm">
-  <a class="link-success" href="/add_plant_type/">Here</a>
-</button>
-to add a new plant to the library
+<h1 style="font-family: copperplate, sans-serif; color: #778f48">
+  Plant Library
+</h1>
+<p class="fs-5" style="color: #8f6479; font-family: copperplate, sans-serif">
+  Click on a plant's name to get more info!
+</p>
+<div class="fs-10" style="color: #8f6479; font-family: copperplate, sans-serif">
+  Don't see your plant in this library?  Click
+  <button type="button" class="btn btn-sm" style="background-color: #778F48">
+    <a style="color: white" href="/add_plant_type/">Here</a>
+  </button>
+  to add a new plant type.
 </div>
 <div class="row">
   {% for plant_type in library %}
   <div class="col-sm-4" style="padding: 1rem">
     <div class="card border-dark mb-3" style="margin-right: 10px; width: 18rem">
-      {% if plant_type.photo %} 
+      {% if plant_type.photo %}
+      <img src="{{ plant_type.photo.url }}" class="card-img-top" alt="..." />
+      {%else%} 
       <img
-        src="{{ plant_type.photo.url }}"
-        class="card-img-top"
-        alt="..."
+          src='/media/images/no-pic-frame.png'
+          class="card-img-top" alt="..."
       />
-      {%else%}
-      no photo
+      <div class="text-center mx-auto">
+        <a
+            href="/add_plant/{{plant.id}}/"
+            class="btn  btn-sm btn-outline-light"
+            style="background-color: #8f6479"
+        >
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="16" 
+                height="16" 
+                fill="white" 
+                class="bi bi-plus-circle" 
+                viewBox="0 0 16 16"
+            >
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg> 
+                Add/Change Photo
+        </a>
+    </div>
       {% endif %}
       <div class="card-body text-center" style="font-size: 2rem">
-        <h3 class="card-title">
-          <strong><a style="color: #4E8234" href="/plant_type/{{plant_type.id}}/">
-            {% if plant_type.common_name %} 
-            {{ plant_type.common_name }} 
-            {% else %} 
-            {{ plant_type.name }} 
-            {% endif %}
+        <h3 class="card-title text-capitalize">
+          <strong><a style="color: #778F48" href="/plant_type/{{plant_type.id}}/" class="text-capitalize">
+              {% if plant_type.common_name %} 
+              {{ plant_type.common_name }} 
+              {% else %} 
+              {{ plant_type.name }} 
+              {% endif %}
           </a></strong>
         </h3>
-        <a href="/add_plant/{{plant_type.id}}/" class="btn" style="background-color: #DBD5A4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#778F48" class="bi bi-plus-circle" viewBox="0 0 16 16">
+        <a
+          href="/add_plant/{{plant_type.id}}/"
+          class="btn"
+          style="background-color: #dbd5a4"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="#778F48"
+            class="bi bi-plus-circle"
+            viewBox="0 0 16 16"
+          >
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-          </svg> Add plant to my profile
+          </svg>
+          Add plant to my profile
         </a>
       </div>
     </div>
@@ -45,5 +79,3 @@ to add a new plant to the library
 </div>
 
 {% endblock %}
-
-

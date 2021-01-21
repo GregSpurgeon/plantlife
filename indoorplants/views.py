@@ -1,17 +1,16 @@
 from datetime import datetime, date, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.views.generic import View
-from django.db.models import Q
 
-from myuser.models import MyUser
-
-from indoorplants.forms import AddPlantTypeForm
 from indoorplants.models import Plant, PlantType
 from journal.models import Entry
-
+from myuser.models import MyUser
 from plantcalendar.models import PlantWateringEntry
+
+from indoorplants.forms import AddPlantTypeForm
 
 
 class PlantView(View):
@@ -36,7 +35,7 @@ class PlantView(View):
             next_date = date + timedelta(days=days)
             notes = "Time to water"
             rec_date = next_date           
-            for _ in range(400):
+            for _ in range(150):
                 PlantWateringEntry.objects.create(
                     owner=plant.owner,
                     plant=plant,
