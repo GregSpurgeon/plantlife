@@ -3,11 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.views.generic import View
+from django.db.models import Q
 
+from myuser.models import MyUser
+
+from indoorplants.forms import AddPlantTypeForm
 from indoorplants.models import Plant, PlantType
 from journal.models import Entry
+
 from plantcalendar.models import PlantWateringEntry
-# Create your views here.
+
 
 class PlantView(View):
     def get(self, request, plant_id):
@@ -44,7 +49,7 @@ class PlantView(View):
 
 class LibraryView(View):
     def get(self, request):
-        library = PlantType.objects.filter(author=1)
+        library = PlantType.objects.filter(Q(author=1) | Q(author=request.user.id))
         return render(request, 'plantlibrary.html', {'library': library})
 
 
@@ -97,6 +102,31 @@ def add_plant(request, plant_id):
         plant=new_plant
     )
     return HttpResponseRedirect(reverse('plant', kwargs={'plant_id': new_plant.id}))
+
+
+class AddPlantType(View):
+    form_class = AddPlantTypeForm
+    def get(self, request):
+        form = self.form_class()
+        return render(request, 'generic_form.html', {'form': form, 'errors': None})
+    
+    def post(self, request):    
+            form = self.form_class(request.POST, request.FILES)
+            if form.is_valid():
+                data = form.cleaned_data
+                PlantType.objects.create(
+                    name=data['name'],
+                    author=MyUser.objects.get(username=request.user.username),
+                    common_name=data['common_name'],
+                    photo=data['photo'],
+                    sunlight_type=data['sunlight_type'],
+                    water_freq=data['water_freq'],
+                    soil_type=data['soil_type'],
+                    moisture_level=data['moisture_level'],
+                    common_problems=data['common_problems'],
+                    notes=data['notes']
+                )
+                return HttpResponseRedirect(request.GET.get('next', reverse('library')))
 
 
 @login_required
