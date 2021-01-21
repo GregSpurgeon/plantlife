@@ -7,7 +7,8 @@ from authentication.views import LoginView, LogoutView, SignUpView, about
 from plantcalendar.views import CalendarView, CreateCalEntry, remove_calendar_entry
 from journal.views import CreateEntryView, remove_entry
 from myuser.views import index_view, profile, edit_profile, delete_profile
-from indoorplants.views import PlantView, AddPlantType, PlantTypeView, LibraryView, add_plant, remove_plant, alt_watering
+from indoorplants.views import PlantView, AddPlantType, PlantTypeView, LibraryView
+from indoorplants.views import add_plant, remove_plant, alt_watering
 
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path('about/', about, name="about"),
     path('accounts/<str:username>/', profile, name='profile'),
     path('add_plant/<int:plant_id>/', add_plant, name='add_plant'),
+    path('add_plant_type/', AddPlantType.as_view(), name="add_plant_type"),
     path('admin_site/', admin.site.urls),
     path('all_plants/', LibraryView.as_view(), name='library'),
     path('alt_watering/<int:plant_id>/', alt_watering, name='alt_watering'),
@@ -31,8 +33,7 @@ urlpatterns = [
     path('remove_calendar_entry/<int:entry_id>/', remove_calendar_entry, name='remove_calendar_entry'),
     path('remove_entry/<int:entry_id>/', remove_entry, name='remove_entry'),
     path('remove_plant/<int:plant_id>/', remove_plant, name='remove_plant'),
-    path('sign_up/', SignUpView.as_view(), name='sign_up'),
-    path('add_plant_type/', AddPlantType.as_view(), name="add_plant_type")
+    path('sign_up/', SignUpView.as_view(), name='sign_up')
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
