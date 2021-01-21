@@ -2,6 +2,13 @@
 {% block content %}
 {% load static %}
 
+<div>
+  {% if form.email %}
+  <h2>Fill out the fields below to create an account.</h2>
+  {% elif form.username%}
+  <h2>Please enter your info below to log in.</h2>
+  {% endif %}
+</div>
 <div class="container mx-auto" style="padding: 60px;">
   <div class="float-start">
     <form method="post" action="" enctype="multipart/form-data">
