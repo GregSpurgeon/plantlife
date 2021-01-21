@@ -7,7 +7,7 @@ from authentication.views import LoginView, LogoutView, SignUpView, about
 from plantcalendar.views import CalendarView, CreateCalEntry, remove_calendar_entry
 from journal.views import CreateEntryView, remove_entry
 from myuser.views import index_view, profile, edit_profile, delete_profile
-from indoorplants.views import PlantView, AddPlantType, PlantTypeView, LibraryView
+from indoorplants.views import PlantView, AddPlantType, PlantTypeView, LibraryView, AddPlantTypeImage
 from indoorplants.views import add_plant, remove_plant, alt_watering
 
 
@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout_page'),
     path('plant/<int:plant_id>/', PlantView.as_view(), name='plant'),
     path('plant_type/<int:plant_id>/', PlantTypeView.as_view(), name='plant_type'),
+    path('plant_type_new_image/<int:plant_type_id>/', AddPlantTypeImage.as_view(), name='edit_plant_type_image'),
     path('remove_calendar_entry/<int:entry_id>/', remove_calendar_entry, name='remove_calendar_entry'),
     path('remove_entry/<int:entry_id>/', remove_entry, name='remove_entry'),
     path('remove_plant/<int:plant_id>/', remove_plant, name='remove_plant'),

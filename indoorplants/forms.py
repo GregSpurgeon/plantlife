@@ -12,4 +12,9 @@ class AddPlantTypeForm(forms.ModelForm):
         'name' : forms.TextInput(attrs = {'placeholder': 'Scientific Name'}), 
         }
 
+class EditPlantTypeImage(forms.ModelForm):
+
+    class Meta:
+        model = PlantType
+        fields = ('photo',)
         

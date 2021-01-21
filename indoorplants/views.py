@@ -10,7 +10,7 @@ from journal.models import Entry
 from myuser.models import MyUser
 from plantcalendar.models import PlantWateringEntry
 
-from indoorplants.forms import AddPlantTypeForm
+from indoorplants.forms import AddPlantTypeForm, EditPlantTypeImage
 
 
 class PlantView(View):
@@ -126,6 +126,21 @@ class AddPlantType(View):
                     notes=data['notes']
                 )
                 return HttpResponseRedirect(request.GET.get('next', reverse('library')))
+
+class AddPlantTypeImage(View):
+    form_class = EditPlantTypeImage
+    def get(self, request, plant_type_id):
+        form = self.form_class()
+        return render(request, 'generic_form.html', {'form': form, 'errors': None})
+
+    def post(self, request, plant_type_id):
+        form = self.form_class(request.POST, request.FILES)
+        plant = PlantType.objects.get(id=plant_type_id)
+        if form.is_valid():
+            data = form.cleaned_data
+            plant.photo = data['photo']
+            plant.save()
+            return HttpResponseRedirect(reverse('library'))
 
 
 @login_required
